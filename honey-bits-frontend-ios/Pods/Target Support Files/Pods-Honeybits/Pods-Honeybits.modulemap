@@ -1,0 +1,6 @@
+framework module Pods_Honeybits {
+  umbrella header "Pods-Honeybits-umbrella.h"
+
+  export *
+  module * { export * }
+}
