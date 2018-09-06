@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">HoneyBits</string>
+    <string name="title_activity_main">HoneyBits</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_you">You</string>
+    <string name="title_cart">Cart</string>
+</resources>
