@@ -6,4 +6,8 @@
     <string name="title_search">Search</string>
     <string name="title_you">You</string>
     <string name="title_cart">Cart</string>
+    <string name="home_image_view">Home feed view top image</string>
+    <string name="sign_in">Sign in</string>
+    <string name="register">Register</string>
+    <string name="product_image_view">Product image view</string>
 </resources>

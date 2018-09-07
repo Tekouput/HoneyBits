@@ -13,4 +13,10 @@
         <item name="bottomNavigationStyle">@style/AlertDialog.AppCompat</item>
     </style>
 
+    <style name="LightButton" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/custom_button_border</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:minHeight">60dp</item>
+    </style>
+
 </resources>
