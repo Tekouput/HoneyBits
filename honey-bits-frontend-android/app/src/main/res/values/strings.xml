@@ -10,4 +10,6 @@
     <string name="sign_in">Sign in</string>
     <string name="register">Register</string>
     <string name="product_image_view">Product image view</string>
+    <string name="popular_products">Popular products</string>
+    <string name="latest_products">Latest products</string>
 </resources>

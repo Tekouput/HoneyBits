@@ -1,5 +1,6 @@
 package com.teko.honeybits.honeybits.adapters.home;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +20,19 @@ import java.util.Map;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
+    public enum LayoutDirection {
+        HORIZONTAL,
+        VERTICAL
+    }
+
+    private LayoutDirection layoutDirection;
     private Product[] products = new Product[0];
+    private Context context;
+
+    public ProductAdapter(LayoutDirection layoutDirection, Context context) {
+        this.layoutDirection = layoutDirection;
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -31,6 +44,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder productViewHolder, int i) {
+
+        if(layoutDirection == LayoutDirection.HORIZONTAL) {
+            int width = (int) context.getResources().getDimension(R.dimen.width_horizontal_dimensions_product);
+            int height = (int) context.getResources().getDimension(R.dimen.height_horizontal_dimensions_product);
+            int margin = (int) context.getResources().getDimension(R.dimen.card_margin_product);
+
+            RecyclerView.LayoutParams distribution = new RecyclerView.LayoutParams(width, height);
+            distribution.setMargins(margin, margin, margin, margin);
+
+            productViewHolder.productView.setLayoutParams(distribution);
+        }
+
         productViewHolder.name.setText(products[i].getName());
         productViewHolder.storeName.setText(products[i].getShop().getName());
 
@@ -47,10 +72,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         productViewHolder.price.setText(products[i].getPrice().getFormatted());
 
-    }
-
-    public Product[] getProducts() {
-        return products;
     }
 
     public void setProducts(Product[] products) {

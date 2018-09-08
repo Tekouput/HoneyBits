@@ -12,7 +12,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -60,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Popular products"
+                android:text="@string/popular_products"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textSize="24sp" />
@@ -69,10 +70,30 @@
                 android:id="@+id/popular_products"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="60dp"
                 android:nestedScrollingEnabled="false"
-                android:scrollbars="none" />
+                android:scrollbars="none" >
 
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="@string/latest_products"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="24sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/latest_products"
+                android:layout_width="match_parent"
+                android:layout_height="215dp"
+                android:nestedScrollingEnabled="true"
+                android:scrollbars="none" >
+
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
 
