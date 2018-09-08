@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.teko.honeybits.honeybits.API.GetProducts;
-import com.teko.honeybits.honeybits.API.OnResultReadyListener;
 import com.teko.honeybits.honeybits.API.Request;
 import com.teko.honeybits.honeybits.R;
 import com.teko.honeybits.honeybits.adapters.home.ProductAdapter;
@@ -25,26 +24,23 @@ import java.util.Map;
 
 public class FeedFragment extends Fragment {
 
-    private RecyclerView popularProductsList;
-    private ProductAdapter popularProductAdapter;
-    private ProductsReadyListener popularListener;
-    private RecyclerView.LayoutManager gridLayoutManager;
-
-    private RecyclerView latestProductsList;
-    private ProductAdapter latestProductAdapter;
-    private ProductsReadyListener latestListener;
-    private RecyclerView.LayoutManager linearLayoutManager;
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        assert container != null;
         Context context = container.getContext();
 
         View view = inflater.inflate(R.layout.fragment_home_feed, container, false);
-        popularProductsList = view.findViewById(R.id.popular_products);
+        setUpRecyclers(container, context, view);
+
+        return view;
+    }
+
+    private void setUpRecyclers(@NonNull ViewGroup container, Context context, View view) {
+        RecyclerView popularProductsList = view.findViewById(R.id.popular_products);
         popularProductsList.setHasFixedSize(false);
-        gridLayoutManager = new GridLayoutManager(context, 2);
+        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
 
         popularProductsList.setLayoutManager(gridLayoutManager);
 
@@ -52,30 +48,28 @@ public class FeedFragment extends Fragment {
         Map<String, String> headers = new HashMap<>();
 
         Request requestPopular = new Request("products/popular", "GET", params, headers);
-        popularProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.VERTICAL, context);
-        popularListener = new ProductsReadyListener(popularProductAdapter);
+        ProductAdapter popularProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.VERTICAL, context);
+        ProductsReadyListener popularListener = new ProductsReadyListener(popularProductAdapter);
         GetProducts getProductsPopular = new GetProducts();
         getProductsPopular.registerOnResultReadyListener(popularListener);
         getProductsPopular.execute(requestPopular);
         popularProductsList.setAdapter(popularProductAdapter);
 
-        latestProductsList = view.findViewById(R.id.latest_products);
+        RecyclerView latestProductsList = view.findViewById(R.id.latest_products);
         latestProductsList.setHasFixedSize(false);
-        linearLayoutManager = new LinearLayoutManager(container.getContext(),
+        RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(container.getContext(),
                 LinearLayoutManager.HORIZONTAL,
                 false);
 
         latestProductsList.setLayoutManager(linearLayoutManager);
 
         Request requestLatest = new Request("products/latest", "GET", params, headers);
-        latestProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.HORIZONTAL, context);
-        latestListener = new ProductsReadyListener(latestProductAdapter);
+        ProductAdapter latestProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.HORIZONTAL, context);
+        ProductsReadyListener latestListener = new ProductsReadyListener(latestProductAdapter);
         GetProducts getProductsLatest = new GetProducts();
         getProductsLatest.registerOnResultReadyListener(latestListener);
         getProductsLatest.execute(requestLatest);
         latestProductsList.setAdapter(latestProductAdapter);
-
-        return view;
     }
 
     @Override
