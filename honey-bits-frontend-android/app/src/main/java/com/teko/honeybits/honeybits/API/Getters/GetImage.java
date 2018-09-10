@@ -1,8 +1,12 @@
-package com.teko.honeybits.honeybits.API;
+package com.teko.honeybits.honeybits.API.Getters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+
+import com.teko.honeybits.honeybits.API.OnResultReadyListener;
+import com.teko.honeybits.honeybits.API.Request;
+
 import java.io.IOException;
 import java.net.URL;
 

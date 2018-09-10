@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.teko.honeybits.honeybits.API.GetImage;
+import com.teko.honeybits.honeybits.API.Getters.GetImage;
 import com.teko.honeybits.honeybits.API.Request;
 import com.teko.honeybits.honeybits.R;
 import com.teko.honeybits.honeybits.listeners.ImageReadyListener;

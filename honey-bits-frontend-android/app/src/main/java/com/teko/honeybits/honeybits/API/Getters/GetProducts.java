@@ -1,10 +1,14 @@
-package com.teko.honeybits.honeybits.API;
+package com.teko.honeybits.honeybits.API.Getters;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.teko.honeybits.honeybits.API.OnResultReadyListener;
+import com.teko.honeybits.honeybits.API.Request;
 import com.teko.honeybits.honeybits.models.Location;
 import com.teko.honeybits.honeybits.models.Picture;
+import com.teko.honeybits.honeybits.models.Price;
+import com.teko.honeybits.honeybits.models.Product;
 import com.teko.honeybits.honeybits.models.Shop;
 
 import org.apache.http.HttpEntity;
@@ -20,11 +24,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class GetShops extends AsyncTask<Request, Void, Shop[]> {
+public class GetProducts extends AsyncTask<Request, Void, Product[]> {
 
-    private OnResultReadyListener<Shop[]> listener;
+    private OnResultReadyListener<Product[]> listener;
 
-    public void registerOnResultReadyListener(OnResultReadyListener<Shop[]> listener){
+    public void registerOnResultReadyListener(OnResultReadyListener<Product[]> listener){
         this.listener = listener;
     }
 
@@ -34,7 +38,7 @@ public class GetShops extends AsyncTask<Request, Void, Shop[]> {
     }
 
     @Override
-    protected Shop[] doInBackground(Request... requests) {
+    protected Product[] doInBackground(Request... requests) {
         try {
 
             HttpGet httpRequest = new HttpGet(requests[0].url);
@@ -48,11 +52,13 @@ public class GetShops extends AsyncTask<Request, Void, Shop[]> {
                 String data = EntityUtils.toString(entity);
 
 
-                ArrayList<Shop> shops = new ArrayList<>();
+                ArrayList<Product> products = new ArrayList<>();
                 JSONArray jArray = new JSONArray(data);
                 for (int i = 0; i < jArray.length(); i++){
-                    JSONObject jShop = jArray.getJSONObject(i);
-                    Log.i("SHOP", jShop.toString());
+                    JSONObject jObject = jArray.getJSONObject(i);
+                    Log.i("Product", jObject.toString());
+
+                    JSONObject jShop = jObject.getJSONObject("shop");
                     JSONObject jShopPicture = jShop.getJSONObject("shop_picture");
                     JSONObject jShopLogo = jShop.getJSONObject("shop_logo");
                     JSONObject jLocation = jShop.getJSONObject("map_location");
@@ -89,22 +95,53 @@ public class GetShops extends AsyncTask<Request, Void, Shop[]> {
                             jShop.getBoolean("is_favorite")
                     );
 
-                    shops.add(shop);
+                    JSONObject jPrice = jObject.getJSONObject("price");
+                    Product product = new Product(
+                            jObject.getString("id"),
+                            jObject.getString("name"),
+                            jObject.getString("description"),
+                            shop,
+                            jObject.getBoolean("is_favorite"),
+                            new Price(
+                                    jPrice.getString("raw"),
+                                    jPrice.getString("formatted")
+                            )
+                    );
+
+                    JSONArray jPictures = jObject.getJSONArray("pictures");
+                    for (int j = 0; j < jPictures.length(); j++){
+                        JSONObject jPicture = jPictures.getJSONObject(j);
+                        JSONObject jUrls = jPicture.getJSONObject("urls");
+                        Log.i("Test", jUrls.toString());
+                        Picture picture = new Picture(
+                                jPicture.getString("id"),
+                                jPicture.getString("product"),
+                                new Picture.SizeSources(
+                                        jUrls.getString("big"),
+                                        jUrls.getString("medium"),
+                                        jUrls.getString("thumb")
+                                )
+
+                        );
+                        product.getPicture().add(picture);
+                    }
+
+                    products.add(product);
                 }
 
-                return shops.toArray(new Shop[shops.size()]);
+                return products.toArray(new Product[products.size()]);
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-        return new Shop[0];
+        return new Product[0];
     }
 
     @Override
-    protected void onPostExecute(Shop[] shops) {
-        super.onPostExecute(shops);
+    protected void onPostExecute(Product[] products) {
+        super.onPostExecute(products);
         if (listener != null){
-            listener.onResultReady(shops);
+            listener.onResultReady(products);
         }
     }
 }

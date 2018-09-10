@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.teko.honeybits.honeybits.API.GetProducts;
+import com.teko.honeybits.honeybits.API.Getters.GetProducts;
 import com.teko.honeybits.honeybits.API.Request;
 import com.teko.honeybits.honeybits.R;
 import com.teko.honeybits.honeybits.adapters.home.ProductAdapter;
