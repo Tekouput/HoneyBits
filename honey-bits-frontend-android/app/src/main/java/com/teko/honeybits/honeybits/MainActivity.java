@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.teko.honeybits.honeybits.dialogs.AuthenticateDialog;
 import com.teko.honeybits.honeybits.fragments.CartFragment;
 import com.teko.honeybits.honeybits.fragments.HomeFragment;
 import com.teko.honeybits.honeybits.fragments.SearchFragment;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements FeedFragment.OnFr
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+            Configuration.fragmentManager = getSupportFragmentManager();
             Fragment selectedFragment = new HomeFragment();
 
             switch (item.getItemId()) {
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements FeedFragment.OnFr
         );
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_title);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

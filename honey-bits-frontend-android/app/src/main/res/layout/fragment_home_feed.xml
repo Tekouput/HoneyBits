@@ -35,7 +35,7 @@
                 android:paddingTop="10dp">
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/register_button"
                     style="@style/LightButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                     android:text="@string/register" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/sign_in_button"
                     style="@style/LightButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

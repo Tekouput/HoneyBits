@@ -6,4 +6,8 @@
     <color name="colorNeutral">#ededf4</color>
     <color name="colorPrimaryDark">#0F0A0A</color>
     <color name="colorAccent">#F3652B</color>
+    <color name="shade">#990F0A0A</color>
+
+    <color name="google_blue">#4285f4</color>
+    <color name="facebook_blue">#3c5898</color>
 </resources>

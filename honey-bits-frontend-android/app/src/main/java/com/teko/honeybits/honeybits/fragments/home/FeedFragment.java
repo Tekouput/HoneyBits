@@ -1,6 +1,7 @@
 package com.teko.honeybits.honeybits.fragments.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,9 +13,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.teko.honeybits.honeybits.API.Getters.GetProducts;
 import com.teko.honeybits.honeybits.API.Request;
+import com.teko.honeybits.honeybits.LoginActivity;
 import com.teko.honeybits.honeybits.R;
 import com.teko.honeybits.honeybits.adapters.home.ProductAdapter;
 import com.teko.honeybits.honeybits.listeners.ProductsReadyListener;
@@ -29,10 +32,18 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         assert container != null;
-        Context context = container.getContext();
+        final Context context = container.getContext();
 
         View view = inflater.inflate(R.layout.fragment_home_feed, container, false);
         setUpRecyclers(context, view);
+
+        view.findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
