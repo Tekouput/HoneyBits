@@ -8,4 +8,7 @@
 
     <dimen name="card_margin_product">10dp</dimen>
 
+    <dimen name="height_horizontal_dimensions_shop">190dp</dimen>
+    <dimen name="width_horizontal_dimensions_shop">220dp</dimen>
+
 </resources>

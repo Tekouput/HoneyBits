@@ -32,14 +32,14 @@ public class FeedFragment extends Fragment {
         Context context = container.getContext();
 
         View view = inflater.inflate(R.layout.fragment_home_feed, container, false);
-        setUpRecyclers(container, context, view);
+        setUpRecyclers(context, view);
 
         return view;
     }
 
-    private void setUpRecyclers(@NonNull ViewGroup container, Context context, View view) {
+    private void setUpRecyclers(Context context, View view) {
         RecyclerView popularProductsList = view.findViewById(R.id.popular_products);
-        popularProductsList.setHasFixedSize(false);
+        popularProductsList.setHasFixedSize(true);
         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
 
         popularProductsList.setLayoutManager(gridLayoutManager);
@@ -56,8 +56,8 @@ public class FeedFragment extends Fragment {
         popularProductsList.setAdapter(popularProductAdapter);
 
         RecyclerView latestProductsList = view.findViewById(R.id.latest_products);
-        latestProductsList.setHasFixedSize(false);
-        RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(container.getContext(),
+        latestProductsList.setHasFixedSize(true);
+        RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(context,
                 LinearLayoutManager.HORIZONTAL,
                 false);
 

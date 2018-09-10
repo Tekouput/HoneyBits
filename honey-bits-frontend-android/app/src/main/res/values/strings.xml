@@ -12,4 +12,10 @@
     <string name="product_image_view">Product image view</string>
     <string name="popular_products">Popular products</string>
     <string name="latest_products">Latest products</string>
+    <string name="editors_choice_products">Editors\' Choice Products</string>
+    <string name="editors_choice_shops">Editors\' Choice Shops</string>
+    <string name="dummy">Dummy</string>
+    <string name="shop_image_holder">Shop image holder</string>
+    <string name="sshop_logo_holder">sShop logo holder</string>
+    <string name="add_to_your_favorites">Add to your favorites</string>
 </resources>

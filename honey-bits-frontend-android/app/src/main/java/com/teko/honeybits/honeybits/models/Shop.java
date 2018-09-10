@@ -33,7 +33,7 @@ public class Shop {
         this.isFavorite = isFavorite;
     }
 
-    public Shop(String id,
+    /*public Shop(String id,
                 String name,
                 String description,
                 Picture picture,
@@ -50,7 +50,7 @@ public class Shop {
         this.policy = policy;
         this.rating = rating;
         this.isFavorite = false;
-    }
+    }*/
 
     public String getId() {
         return id;
