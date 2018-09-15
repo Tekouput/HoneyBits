@@ -14,6 +14,10 @@ public class LoginHandler {
         session = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
+    public void performLogin(String user, String password){
+
+    }
+
     public String getToken(){
         String token = session.getString("TOKEN", null);
         if (token == null){
