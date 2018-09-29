@@ -61,10 +61,10 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         if (shops[i].getRating() != null)
             shopViewHolder.ratingBar.setRating(Float.parseFloat(shops[i].getRating()));
 
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         Map<String, String> headers = new HashMap<>();
-        Request requestImage = new Request(shops[i].getPicture().getUrls().getBig(), "GET", params, headers);
-        Request requestLogo = new Request(shops[i].getLogo().getUrls().getBig(), "GET", params, headers);
+        Request requestImage = new Request(shops[i].getPicture().getUrls().getBig(), params, headers);
+        Request requestLogo = new Request(shops[i].getLogo().getUrls().getBig(), params, headers);
         GetImage getImage = new GetImage();
         GetImage getLogo = new GetImage();
 

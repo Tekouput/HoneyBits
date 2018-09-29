@@ -46,10 +46,10 @@ public class FavoritesFragment extends Fragment {
         editorsStores.setHasFixedSize(true);
         editorsStores.setLayoutManager(linearLayoutShops);
 
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         Map<String, String> headers = new HashMap<>();
 
-        Request requestEditorsProducts = new Request("products/latest", "GET", params, headers);
+        Request requestEditorsProducts = new Request("products/latest", params, headers);
         ProductAdapter editorsProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.HORIZONTAL, context);
         ProductsReadyListener editorsProductListener = new ProductsReadyListener(editorsProductAdapter);
         GetProducts getProductsEditors = new GetProducts();
@@ -57,7 +57,7 @@ public class FavoritesFragment extends Fragment {
         getProductsEditors.execute(requestEditorsProducts);
         editorsProducts.setAdapter(editorsProductAdapter);
 
-        Request requestEditorsShops = new Request("shops/favorites", "GET", params, headers);
+        Request requestEditorsShops = new Request("shops/favorites", params, headers);
         ShopAdapter editorsShopAdapter = new ShopAdapter(ShopAdapter.LayoutDirection.HORIZONTAL, context);
         ShopsReadyListener editorsShopListener = new ShopsReadyListener(editorsShopAdapter);
         GetShops getShopEditors = new GetShops();

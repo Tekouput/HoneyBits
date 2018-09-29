@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.teko.honeybits.honeybits.API.Authentication.LoginHandler;
+
 import java.util.Objects;
 import java.util.zip.Inflater;
 
@@ -31,23 +33,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void signIn(View view) {
-        Log.i("CLICK EVENT", "Login");
 
+        String email = ((EditText)findViewById(R.id.email)).getText().toString();
+        String password = ((EditText)findViewById(R.id.password)).getText().toString();
+
+        Log.i("Credentials: ", email + " @ " +  password);
+
+        LoginHandler loginHandler = new LoginHandler(this);
+        loginHandler.performLogin(email, password);
     }
 
     public void forgotPassword(View view) {
-        Log.i("CLICK EVENT", "Login");
     }
 
     public void continueGoogle(View view) {
-        Log.i("CLICK EVENT", "Login");
     }
 
     public void continueFacebook(View view) {
-        Log.i("CLICK EVENT", "Login");
     }
 
     public void registerCall(View view) {
-        Log.i("CLICK EVENT", "Login");
     }
 }

@@ -60,9 +60,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         productViewHolder.storeName.setText(products[i].getShop().getName());
 
         if (products[i].getPicture().size() > 0) {
-            Map<String, String> params = new HashMap<>();
+            Map<String, Object> params = new HashMap<>();
             Map<String, String> headers = new HashMap<>();
-            Request request = new Request(products[i].getPicture().get(0).getUrls().getBig(), "GET", params, headers);
+            Request request = new Request(products[i].getPicture().get(0).getUrls().getBig(), params, headers);
             GetImage getImage = new GetImage();
 
             ImageReadyListener imageReadyListener = new ImageReadyListener(productViewHolder.image);

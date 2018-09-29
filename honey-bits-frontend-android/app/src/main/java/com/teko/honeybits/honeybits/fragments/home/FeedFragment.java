@@ -55,10 +55,10 @@ public class FeedFragment extends Fragment {
 
         popularProductsList.setLayoutManager(gridLayoutManager);
 
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         Map<String, String> headers = new HashMap<>();
 
-        Request requestPopular = new Request("products/popular", "GET", params, headers);
+        Request requestPopular = new Request("products/popular", params, headers);
         ProductAdapter popularProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.VERTICAL, context);
         ProductsReadyListener popularListener = new ProductsReadyListener(popularProductAdapter);
         GetProducts getProductsPopular = new GetProducts();
@@ -74,7 +74,7 @@ public class FeedFragment extends Fragment {
 
         latestProductsList.setLayoutManager(linearLayoutManager);
 
-        Request requestLatest = new Request("products/latest", "GET", params, headers);
+        Request requestLatest = new Request("products/latest", params, headers);
         ProductAdapter latestProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.HORIZONTAL, context);
         ProductsReadyListener latestListener = new ProductsReadyListener(latestProductAdapter);
         GetProducts getProductsLatest = new GetProducts();
