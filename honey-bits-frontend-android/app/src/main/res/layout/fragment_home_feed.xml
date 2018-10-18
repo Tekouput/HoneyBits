@@ -26,13 +26,14 @@
                 android:contentDescription="@string/home_image_view" />
 
             <LinearLayout
+                android:id="@+id/unsigned_user_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:paddingStart="10dp"
-                android:paddingTop="10dp">
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp">
 
                 <Button
                     android:id="@+id/register_button"

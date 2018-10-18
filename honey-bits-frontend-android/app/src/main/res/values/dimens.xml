@@ -10,5 +10,10 @@
 
     <dimen name="height_horizontal_dimensions_shop">190dp</dimen>
     <dimen name="width_horizontal_dimensions_shop">220dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="selector_height">60dp</dimen>
+    <dimen name="selector_padding_normal">80dp</dimen>
+    <dimen name="selector_padding_expanded">160dp</dimen>
 
 </resources>

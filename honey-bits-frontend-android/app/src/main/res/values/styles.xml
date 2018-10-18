@@ -14,7 +14,7 @@
     </style>
 
     <style name="LightButton" parent="Base.Widget.AppCompat.Button.Colored">
-        <item name="android:background">@drawable/custom_button_border</item>
+        <item name="android:background">@drawable/transition_background_button_selected</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:minHeight">60dp</item>
     </style>

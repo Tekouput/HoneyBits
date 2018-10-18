@@ -40,7 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         Log.i("Credentials: ", email + " @ " +  password);
 
         LoginHandler loginHandler = new LoginHandler(this);
-        loginHandler.performLogin(email, password);
+        View parentLayout = findViewById(android.R.id.content);
+        loginHandler.performLogin(email, password, parentLayout);
     }
 
     public void forgotPassword(View view) {

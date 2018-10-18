@@ -53,7 +53,7 @@ public class AuthCaller extends AsyncTask<Request, Void, String> {
 
         try {
             return result.getString("auth_token");
-        } catch (JSONException e) {
+        } catch (JSONException | NullPointerException e) {
             e.printStackTrace();
             return "";
         }

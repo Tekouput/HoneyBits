@@ -1,5 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:paddingTop="80dp"
+        android:paddingBottom="80dp"
+        android:clipToPadding="false"
+        android:id="@+id/search_results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/search_back"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_marginBottom="0dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/search_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/transition_backgropund_w_p">
+
+    <SearchView
+        android:id="@+id/search_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:addStatesFromChildren="false"
+        android:duplicateParentState="false"
+        android:queryHint="Search for anything"
+        android:background="@drawable/custom_button_border" />
+
+
+        <LinearLayout
+            android:id="@+id/selector_container"
+            android:paddingBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_marginEnd="10dp"
+                style="@style/LightButton"
+                android:id="@+id/products_del"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.5"
+                android:text="@string/products"
+                android:background="@drawable/transition_background_button_selected"
+                />
+
+            <Button
+                android:layout_marginStart="10dp"
+                style="@style/LightButton"
+                android:id="@+id/stores_del"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.5"
+                android:text="@string/stores"
+                android:background="@drawable/transition_background_button_selected"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

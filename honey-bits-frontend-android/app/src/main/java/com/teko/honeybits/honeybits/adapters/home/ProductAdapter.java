@@ -1,6 +1,7 @@
 package com.teko.honeybits.honeybits.adapters.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.teko.honeybits.honeybits.API.Getters.GetImage;
 import com.teko.honeybits.honeybits.API.Request;
+import com.teko.honeybits.honeybits.LoginActivity;
+import com.teko.honeybits.honeybits.ProductActivity;
 import com.teko.honeybits.honeybits.R;
 import com.teko.honeybits.honeybits.listeners.ImageReadyListener;
 import com.teko.honeybits.honeybits.models.Product;
@@ -57,6 +60,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         productViewHolder.name.setText(products[i].getName());
+        productViewHolder.context = context;
+        productViewHolder.id = products[i].getId();
         productViewHolder.storeName.setText(products[i].getShop().getName());
 
         if (products[i].getPicture().size() > 0) {
@@ -90,6 +95,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public TextView name;
         public TextView storeName;
         public TextView price;
+        public Context context;
+        public String id;
 
         public ProductViewHolder(View v) {
             super(v);
@@ -99,6 +106,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             name = v.findViewById(R.id.productName);
             storeName = v.findViewById(R.id.shopName);
             price = v.findViewById(R.id.productPrice);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println(name.getText().toString());
+                    Intent intent = new Intent(context, ProductActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
 
     }
