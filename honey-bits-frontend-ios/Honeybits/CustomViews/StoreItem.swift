@@ -33,7 +33,6 @@ import MaterialComponents.MaterialCards
     private func commonInit(){
         Bundle.main.loadNibNamed("StoreItem", owner: self, options: nil)
         let card = MDCCard()
-        card.cornerRadius = 30
         card.setShadowElevation(ShadowElevation(rawValue: 6), for: .normal)
         
         addSubview(card)

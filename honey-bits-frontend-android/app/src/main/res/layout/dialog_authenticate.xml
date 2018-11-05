@@ -78,7 +78,7 @@
                 android:text="Register" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/sign_in_button"
                 style="@style/LightButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -21,11 +21,14 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import com.teko.honeybits.honeybits.API.Getters.GetProducts;
+import com.teko.honeybits.honeybits.API.Getters.GetShops;
 import com.teko.honeybits.honeybits.API.OnResultReadyListener;
 import com.teko.honeybits.honeybits.API.Request;
 import com.teko.honeybits.honeybits.R;
 import com.teko.honeybits.honeybits.adapters.Search.SearchProductAdapter;
+import com.teko.honeybits.honeybits.adapters.Search.SearchShopAdapter;
 import com.teko.honeybits.honeybits.models.Product;
+import com.teko.honeybits.honeybits.models.Shop;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,17 +60,23 @@ public class SearchFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         final SearchProductAdapter productAdapter = new SearchProductAdapter(context);
+        final SearchShopAdapter shopAdapter = new SearchShopAdapter(context);
 
         OnStateChangedListener stateChangedListener = new OnStateChangedListener() {
             @Override
             public void onStateChanges(ResourcesType type) {
                 currentType = type;
-                switch (type){
+                switch (type) {
                     case Stores:
                         productAdapter.clearProducts();
                         productAdapter.notifyDataSetChanged();
+                        shopAdapter.clearShops();
+                        recyclerView.setAdapter(shopAdapter);
+                        shopAdapter.notifyDataSetChanged();
                         break;
                     case Products:
+                        shopAdapter.clearShops();
+                        shopAdapter.notifyDataSetChanged();
                         productAdapter.clearProducts();
                         recyclerView.setAdapter(productAdapter);
                         productAdapter.notifyDataSetChanged();
@@ -100,18 +109,42 @@ public class SearchFragment extends Fragment {
 
                 Map<String, Object> params = new HashMap<>();
                 Map<String, String> headers = new HashMap<>();
-                Request requestPopular = new Request("/products/products_by_name?name="+query, params, headers);
 
-                GetProducts getProductsPopular = new GetProducts();
-                getProductsPopular.registerOnResultReadyListener(new OnResultReadyListener<Product[]>() {
-                    @Override
-                    public void onResultReady(Product[] object) {
-                        productAdapter.clearProducts();
-                        productAdapter.setProducts(new ArrayList<>(Arrays.asList(object)));
-                        productAdapter.notifyDataSetChanged();
-                    }
-                });
-                getProductsPopular.execute(requestPopular);
+                switch (currentType) {
+                    case Products:
+
+                        Request requestProducts = new Request("/products/products_by_name?name=" + query, params, headers);
+
+                        GetProducts getProducts = new GetProducts();
+                        getProducts.registerOnResultReadyListener(new OnResultReadyListener<Product[]>() {
+                            @Override
+                            public void onResultReady(Product[] object) {
+                                productAdapter.clearProducts();
+                                productAdapter.setProducts(new ArrayList<>(Arrays.asList(object)));
+                                productAdapter.notifyDataSetChanged();
+                            }
+                        });
+                        getProducts.execute(requestProducts);
+
+                        break;
+                    case Stores:
+
+                        Request requestShops = new Request("/shops/shops_by_name?name=" + query, params, headers);
+
+                        GetShops getShops = new GetShops();
+                        getShops.registerOnResultReadyListener(new OnResultReadyListener<Shop[]>() {
+                            @Override
+                            public void onResultReady(Shop[] object) {
+                                shopAdapter.clearShops();
+                                shopAdapter.setShops(new ArrayList<>(Arrays.asList(object)));
+                                shopAdapter.notifyDataSetChanged();
+                            }
+                        });
+                        getShops.execute(requestShops);
+
+                        break;
+                }
+
                 return false;
             }
 
@@ -126,13 +159,13 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    private class SwitchableListener implements View.OnClickListener{
+    private class SwitchableListener implements View.OnClickListener {
 
         Button counterPart;
         Context context;
         ResourcesType type;
 
-        public SwitchableListener(Button counterPart, Context context, ResourcesType type){
+        public SwitchableListener(Button counterPart, Context context, ResourcesType type) {
             super();
             this.counterPart = counterPart;
             this.context = context;
@@ -157,12 +190,12 @@ public class SearchFragment extends Fragment {
         void onStateChanges(ResourcesType rt);
     }
 
-    private void setSelected(Button button, Context context){
+    private void setSelected(Button button, Context context) {
         button.setBackgroundResource(android.R.color.transparent);
         button.setTextColor(context.getResources().getColor(android.R.color.white));
     }
 
-    private void unSelect(Button button, Context context){
+    private void unSelect(Button button, Context context) {
         button.setBackgroundResource(R.drawable.transition_background_button_selected);
         button.setTextColor(context.getResources().getColor(R.color.colorAccent));
     }
@@ -179,7 +212,7 @@ public class SearchFragment extends Fragment {
         v.setIconified(false);
 
         final View selectorContainer = view.findViewById(R.id.selector_container);
-        TransitionManager.beginDelayedTransition(((ViewGroup)selectorContainer), new TransitionSet()
+        TransitionManager.beginDelayedTransition(((ViewGroup) selectorContainer), new TransitionSet()
                 .addTransition(new ChangeBounds()));
 
         ViewGroup.LayoutParams a = selectorContainer.getLayoutParams();

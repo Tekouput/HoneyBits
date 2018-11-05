@@ -117,4 +117,6 @@
     </string>
     <string name="stores">Stores</string>
     <string name="products">Products</string>
+    <string name="username">Username</string>
+    <string name="three_dots">...</string>
 </resources>

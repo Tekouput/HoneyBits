@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.teko.honeybits.honeybits.API.Getters.GetValidity;
 import com.teko.honeybits.honeybits.API.OnResultReadyListener;
@@ -51,7 +50,6 @@ public class LoginHandler {
                             .setAction("CLOSE", null)
                             .setActionTextColor(parentLayout.getResources().getColor(android.R.color.holo_red_light ))
                             .show();
-
                 }
             }
         });

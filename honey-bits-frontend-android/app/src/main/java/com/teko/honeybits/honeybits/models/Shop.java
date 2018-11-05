@@ -13,6 +13,8 @@ public class Shop {
     private boolean isFavorite;
     private int sales_count;
 
+    public int distance = 0;
+
     public Shop(String id,
                 String name,
                 String description,
