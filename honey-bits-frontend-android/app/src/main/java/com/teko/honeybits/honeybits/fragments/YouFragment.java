@@ -39,6 +39,7 @@ public class YouFragment extends Fragment {
 
         if(token != null){
             setUpRecyclers(context, view, token);
+            
         }
         
         return view;
