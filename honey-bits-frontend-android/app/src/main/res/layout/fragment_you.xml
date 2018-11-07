@@ -170,6 +170,19 @@
 
             </android.support.v7.widget.RecyclerView>
 
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/popular_products"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="7dp"
+                android:padding="15dp"
+                style="@style/LightButton"
+                android:text="SELL WITH US" />
+
         </RelativeLayout>
     </ScrollView>
 

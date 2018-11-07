@@ -39,11 +39,21 @@ public class GetShops extends AsyncTask<Request, Void, Shop[]> {
     protected Shop[] doInBackground(Request... requests) {
         try {
 
-            HttpGet httpRequest = new HttpGet(requests[0].url);
+            Request request = requests[0];
+
+            HttpGet httpRequest = new HttpGet(request.url);
+
+            for (int i = 0; i < request.headers.size(); i++) {
+                System.out.println(request.headers.get("Authorization"));
+                httpRequest.setHeader("Authorization", request.headers.get("Authorization"));
+            }
+
             HttpClient httpclient = new DefaultHttpClient();
             HttpResponse response = httpclient.execute(httpRequest);
 
+
             int status = response.getStatusLine().getStatusCode();
+
 
             if (status == 200) {
                 HttpEntity entity = response.getEntity();
@@ -95,6 +105,11 @@ public class GetShops extends AsyncTask<Request, Void, Shop[]> {
                 }
 
                 return shops.toArray(new Shop[shops.size()]);
+            } else {
+                System.out.println("###################");
+                HttpEntity entity = response.getEntity();
+                String responseString = EntityUtils.toString(entity, "UTF-8");
+                System.out.println(responseString);
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();

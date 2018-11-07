@@ -20,13 +20,16 @@ import android.widget.TextView;
 import com.teko.honeybits.honeybits.API.Authentication.LoginHandler;
 import com.teko.honeybits.honeybits.API.Getters.GetImage;
 import com.teko.honeybits.honeybits.API.Getters.GetProducts;
+import com.teko.honeybits.honeybits.API.Getters.GetShops;
 import com.teko.honeybits.honeybits.API.Getters.GetUser;
 import com.teko.honeybits.honeybits.API.OnResultReadyListener;
 import com.teko.honeybits.honeybits.API.Request;
 import com.teko.honeybits.honeybits.R;
 import com.teko.honeybits.honeybits.adapters.home.ProductAdapter;
+import com.teko.honeybits.honeybits.adapters.home.ShopAdapter;
 import com.teko.honeybits.honeybits.listeners.ImageReadyListener;
 import com.teko.honeybits.honeybits.listeners.ProductsReadyListener;
+import com.teko.honeybits.honeybits.listeners.ShopsReadyListener;
 import com.teko.honeybits.honeybits.models.User;
 
 import java.io.IOException;
@@ -82,6 +85,8 @@ public class YouFragment extends Fragment {
         return view;
     }
 
+
+
     private void setUpRecyclers(Context context, View view, String token) {
         RecyclerView popularProductsList = view.findViewById(R.id.popular_products);
         popularProductsList.setHasFixedSize(true);
@@ -92,12 +97,14 @@ public class YouFragment extends Fragment {
         Map<String, Object> params = new HashMap<>();
         Map<String, String> headers = new HashMap<>();
 
-        Request requestPopular = new Request("products/popular", params, headers);
-        ProductAdapter popularProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.VERTICAL, context);
-        ProductsReadyListener popularListener = new ProductsReadyListener(popularProductAdapter);
-        GetProducts getProductsPopular = new GetProducts();
-        getProductsPopular.registerOnResultReadyListener(popularListener);
-        getProductsPopular.execute(requestPopular);
-        popularProductsList.setAdapter(popularProductAdapter);
+        headers.put("Authorization", token);
+
+        Request requestPopular = new Request("favorites", params, headers);
+        ShopAdapter favoriteShops = new ShopAdapter(ShopAdapter.LayoutDirection.HORIZONTAL, context);
+        ShopsReadyListener popularListener = new ShopsReadyListener(favoriteShops);
+        GetShops getFavoritesShop = new GetShops();
+        getFavoritesShop.registerOnResultReadyListener(popularListener);
+        getFavoritesShop.execute(requestPopular);
+        popularProductsList.setAdapter(favoriteShops);
     }
 }
