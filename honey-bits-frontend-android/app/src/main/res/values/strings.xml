@@ -119,4 +119,6 @@
     <string name="products">Products</string>
     <string name="username">Username</string>
     <string name="three_dots">...</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
 </resources>

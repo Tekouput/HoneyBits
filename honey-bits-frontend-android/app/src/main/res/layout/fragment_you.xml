@@ -143,7 +143,7 @@
                     android:contentDescription="TODO"
                     android:cropToPadding="true"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/man" />
+                    app:srcCompat="@drawable/image_man" />
 
             </android.support.v7.widget.CardView>
 
@@ -171,7 +171,8 @@
             </android.support.v7.widget.RecyclerView>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/sell"
+                style="@style/LightButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/popular_products"
@@ -180,7 +181,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="7dp"
                 android:padding="15dp"
-                style="@style/LightButton"
                 android:text="SELL WITH US" />
 
         </RelativeLayout>
