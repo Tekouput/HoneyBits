@@ -33,7 +33,7 @@ public class GetUser extends AsyncTask<Request, Void, User> {
         OkHttpClient client = new OkHttpClient();
 
         okhttp3.Request request = new okhttp3.Request.Builder()
-                .url("http://teko1.servehttp.com:10092/users")
+                .url("http://104.248.61.12/users")
                 .get()
                 .addHeader("Authorization", "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1NDI1NjkyNjh9.F7Gjpo6yOCpKhvCYPV1vrQYF-cS_JSvM61YOCdPpWZk")
                 .build();
