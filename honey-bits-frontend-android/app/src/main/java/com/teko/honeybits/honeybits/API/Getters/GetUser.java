@@ -29,7 +29,6 @@ public class GetUser extends AsyncTask<Request, Void, User> {
     @Override
     protected User doInBackground(Request... requests) {
 
-        System.out.print("###################################");
         OkHttpClient client = new OkHttpClient();
 
         okhttp3.Request request = new okhttp3.Request.Builder()

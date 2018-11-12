@@ -16,5 +16,6 @@ public class ImageReadyListener implements OnResultReadyListener<Bitmap> {
     @Override
     public void onResultReady(Bitmap bitmap) {
         imageView.setImageBitmap(bitmap);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
 }

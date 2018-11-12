@@ -21,6 +21,7 @@ import com.teko.honeybits.honeybits.API.Getters.GetProducts;
 import com.teko.honeybits.honeybits.API.Request;
 import com.teko.honeybits.honeybits.LoginActivity;
 import com.teko.honeybits.honeybits.R;
+import com.teko.honeybits.honeybits.RegisterActivity;
 import com.teko.honeybits.honeybits.adapters.home.ProductAdapter;
 import com.teko.honeybits.honeybits.listeners.ProductsReadyListener;
 
@@ -47,6 +48,14 @@ public class FeedFragment extends Fragment {
             }
         });
 
+
+        view.findViewById(R.id.register_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         if ((new LoginHandler(context)).tokenAvailable()){
             View entry = view.findViewById(R.id.unsigned_user_view);

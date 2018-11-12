@@ -2,15 +2,15 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="220dp"
-    android:layout_height="190dp"
     android:id="@+id/view_shop_card"
+    android:layout_width="match_parent"
+    android:layout_height="270dp"
     android:layout_columnWeight="1"
     android:layout_gravity="center"
-    android:layout_marginBottom="10dp"
+    android:layout_marginStart="20dp"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="20dp"
-    android:layout_marginStart="20dp"
+    android:layout_marginBottom="10dp"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp">
 
@@ -19,10 +19,10 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:contentDescription="@string/shop_image_holder"
             android:id="@+id/image_holder"
             android:layout_width="match_parent"
-            android:layout_height="119dp"
+            android:layout_height="191dp"
+            android:contentDescription="@string/shop_image_holder"
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -34,9 +34,10 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:clipChildren="true"
             android:elevation="12dp"
             android:innerRadius="0dp"
             android:shape="ring"
@@ -44,14 +45,13 @@
             app:cardCornerRadius="22.5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_holder"
-            android:clipChildren="true">
+            app:layout_constraintTop_toBottomOf="@+id/image_holder">
 
             <ImageView
-                android:contentDescription="@string/sshop_logo_holder"
                 android:id="@+id/logo_holder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/sshop_logo_holder"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image_holder" />
         </android.support.v7.widget.CardView>
@@ -70,13 +70,13 @@
             android:id="@+id/favorite_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:contentDescription="@string/add_to_your_favorites"
             android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/add_to_your_favorites"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
+            app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 
         <RatingBar
             android:id="@+id/rating_bar"

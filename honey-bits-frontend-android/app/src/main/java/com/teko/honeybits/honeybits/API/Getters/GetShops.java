@@ -106,7 +106,6 @@ public class GetShops extends AsyncTask<Request, Void, Shop[]> {
 
                 return shops.toArray(new Shop[shops.size()]);
             } else {
-                System.out.println("###################");
                 HttpEntity entity = response.getEntity();
                 String responseString = EntityUtils.toString(entity, "UTF-8");
                 System.out.println(responseString);

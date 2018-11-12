@@ -58,7 +58,7 @@ public class FavoritesFragment extends Fragment {
         editorsProducts.setAdapter(editorsProductAdapter);
 
         Request requestEditorsShops = new Request("shops/favorites", params, headers);
-        ShopAdapter editorsShopAdapter = new ShopAdapter(ShopAdapter.LayoutDirection.HORIZONTAL, context);
+        ShopAdapter editorsShopAdapter = new ShopAdapter(ShopAdapter.LayoutDirection.HORIZONTAL, context, null);
         ShopsReadyListener editorsShopListener = new ShopsReadyListener(editorsShopAdapter);
         GetShops getShopEditors = new GetShops();
         getShopEditors.registerOnResultReadyListener(editorsShopListener);
