@@ -55,7 +55,10 @@ public class CreatorActivity extends AppCompatActivity {
                 new ColorDrawable(getResources().getColor(android.R.color.white))
         );
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_title);
+
         ((TextView) findViewById(R.id.tvTitle)).setText("Stores");
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RecyclerView.LayoutManager linearLayoutShops = new LinearLayoutManager(context,
                 LinearLayoutManager.VERTICAL, false);
@@ -70,6 +73,8 @@ public class CreatorActivity extends AppCompatActivity {
         new GetOwnersStores().execute();
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.add, menu);
@@ -83,7 +88,14 @@ public class CreatorActivity extends AppCompatActivity {
         if (id == R.id.add_button) {
             Intent intent = new Intent(this, ShopCreatorActivity.class);
             startActivity(intent);
+        } else if (id == android.R.id.home) {
+            Intent i = new Intent(this, MainActivity.class);
+            i.putExtra("fragment_id", R.id.navigation_users);
+
+            // Now start your activity
+            startActivity(i);
         }
+
         return super.onOptionsItemSelected(item);
     }
 

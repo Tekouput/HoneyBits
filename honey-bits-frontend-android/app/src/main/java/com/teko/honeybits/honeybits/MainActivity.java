@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
@@ -82,8 +83,11 @@ public class MainActivity extends AppCompatActivity implements FeedFragment.OnFr
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
+        ActivityCompat.requestPermissions(this,
+                new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                }, 1);
     }
 
     @Override
@@ -129,8 +133,9 @@ public class MainActivity extends AppCompatActivity implements FeedFragment.OnFr
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
-                return;
+                break;
             }
+
             // other 'case' lines to check for other
             // permissions this app might request
         }

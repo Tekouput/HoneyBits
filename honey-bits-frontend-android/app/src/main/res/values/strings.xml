@@ -116,7 +116,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="stores">Stores</string>
-    <string name="products">Products</string>
     <string name="username">Username</string>
     <string name="three_dots">...</string>
     <string name="title">Title</string>
@@ -128,4 +127,10 @@
     <string name="policy">Policy</string>
     <string name="create_store">Create store</string>
     <string name="title_activity_shop_admin">ShopAdminActivity</string>
+    <string name="policies_settins"><![CDATA[Policies & settings]]></string>
+    <string name="update_information">Update</string>
+    <string name="products">Products</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

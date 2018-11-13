@@ -45,9 +45,7 @@
         <activity android:name=".CreatorActivity" />
         <activity android:name=".ShopCreatorActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity
-            android:name=".ShopAdminActivity"
-            android:label="@string/title_activity_shop_admin" />
+        <activity android:name=".ShopAdminActivity"></activity>
     </application>
 
 </manifest>
