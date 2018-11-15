@@ -57,7 +57,7 @@ public class CreatorActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_title);
 
         ((TextView) findViewById(R.id.tvTitle)).setText("Stores");
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RecyclerView.LayoutManager linearLayoutShops = new LinearLayoutManager(context,
