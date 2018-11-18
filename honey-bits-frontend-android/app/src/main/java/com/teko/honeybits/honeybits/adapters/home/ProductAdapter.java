@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,13 +29,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         VERTICAL
     }
 
+    public enum Style {
+        ADMIN,
+        USER
+    }
+
     private LayoutDirection layoutDirection;
+    private Style style;
     private Product[] products = new Product[0];
     private Context context;
 
     public ProductAdapter(LayoutDirection layoutDirection, Context context) {
         this.layoutDirection = layoutDirection;
         this.context = context;
+        this.style = null;
+    }
+
+    public ProductAdapter(LayoutDirection layoutDirection, Context context, Style style) {
+        this.layoutDirection = layoutDirection;
+        this.context = context;
+        this.style = style;
     }
 
     @NonNull
@@ -47,6 +61,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder productViewHolder, int i) {
+
+        if(style == Style.ADMIN) {
+            productViewHolder.favoriteButton.setImageDrawable(context.getDrawable(R.drawable.ic_close_red_24dp));
+        }
 
         if(layoutDirection == LayoutDirection.HORIZONTAL) {
             int width = (int) context.getResources().getDimension(R.dimen.width_horizontal_dimensions_product);
@@ -97,6 +115,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public TextView price;
         public Context context;
         public String id;
+        public ImageButton favoriteButton;
 
         public ProductViewHolder(View v) {
             super(v);
@@ -106,6 +125,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             name = v.findViewById(R.id.productName);
             storeName = v.findViewById(R.id.shopName);
             price = v.findViewById(R.id.productPrice);
+            favoriteButton = v.findViewById(R.id.imageButton);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override

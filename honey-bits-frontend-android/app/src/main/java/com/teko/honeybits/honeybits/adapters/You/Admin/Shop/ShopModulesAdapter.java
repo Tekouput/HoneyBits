@@ -13,17 +13,21 @@ import com.teko.honeybits.honeybits.fragments.you.admin.shop.UpdateAdmin;
 public class ShopModulesAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
+    private String shopId;
 
-    public ShopModulesAdapter(Context context, FragmentManager fm) {
+    public ShopModulesAdapter(Context context, FragmentManager fm, String shopIp) {
         super(fm);
         mContext = context;
+        this.shopId = shopIp;
     }
 
     // This determines the fragment for each tab
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new ProductsAdmin();
+            ProductsAdmin productsAdmin = new ProductsAdmin();
+            productsAdmin.setShopId(shopId);
+            return productsAdmin;
         } else if (position == 1){
             return new UpdateAdmin();
         } else {

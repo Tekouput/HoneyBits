@@ -1,6 +1,7 @@
 package com.teko.honeybits.honeybits;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
@@ -9,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,18 +58,32 @@ public class ShopAdminActivity extends AppCompatActivity {
 
         title = findViewById(R.id.tvTitle);
         title.setText("...");
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
+        
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         new GetShop().execute();
 
         ViewPager viewPager = findViewById(R.id.fragment_holder_vp);
-        ShopModulesAdapter adapter = new ShopModulesAdapter(this, getSupportFragmentManager());
+        ShopModulesAdapter adapter = new ShopModulesAdapter(this, getSupportFragmentManager(), shopId);
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = findViewById(R.id.tab_layout_elements);
         tabLayout.setupWithViewPager(viewPager);
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            Intent i = new Intent(this, CreatorActivity.class);
+            // Now start your activity
+            startActivity(i);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     class GetShop extends AsyncTask<Void, Void, Shop> {
 
