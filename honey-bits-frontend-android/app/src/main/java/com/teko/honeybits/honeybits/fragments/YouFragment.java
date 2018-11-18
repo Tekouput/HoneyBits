@@ -70,7 +70,7 @@ public class YouFragment extends Fragment {
     }
 
     private void setUpUser(final View view) {
-        GetUser getUser = new GetUser();
+        GetUser getUser = new GetUser(getContext());
         getUser.registerOnResultReadyListener(new OnResultReadyListener<User>() {
             @Override
             public void onResultReady(User user) {

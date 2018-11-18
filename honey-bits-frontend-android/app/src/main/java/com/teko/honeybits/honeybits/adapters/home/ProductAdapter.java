@@ -132,6 +132,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 public void onClick(View v) {
                     System.out.println(name.getText().toString());
                     Intent intent = new Intent(context, ProductActivity.class);
+                    intent.putExtra("PRODUCT_ID", id);
                     context.startActivity(intent);
                 }
             });

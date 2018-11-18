@@ -1,7 +1,9 @@
 package com.teko.honeybits.honeybits.API.Getters;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
+import com.teko.honeybits.honeybits.API.Authentication.LoginHandler;
 import com.teko.honeybits.honeybits.API.OnResultReadyListener;
 import com.teko.honeybits.honeybits.API.Request;
 import com.teko.honeybits.honeybits.models.Avatar;
@@ -21,6 +23,11 @@ import okhttp3.Response;
 public class GetUser extends AsyncTask<Request, Void, User> {
 
     private OnResultReadyListener<User> listener;
+    private Context context;
+
+    public GetUser (Context context) {
+        this.context = context;
+    }
 
     public void registerOnResultReadyListener(OnResultReadyListener<User> listener){
         this.listener = listener;
@@ -34,7 +41,7 @@ public class GetUser extends AsyncTask<Request, Void, User> {
         okhttp3.Request request = new okhttp3.Request.Builder()
                 .url("http://104.248.61.12/users")
                 .get()
-                .addHeader("Authorization", "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1NDI1NjkyNjh9.F7Gjpo6yOCpKhvCYPV1vrQYF-cS_JSvM61YOCdPpWZk")
+                .addHeader("Authorization", new LoginHandler(context).getToken())
                 .build();
 
         try {
