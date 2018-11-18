@@ -58,13 +58,14 @@ public class ShopAdminActivity extends AppCompatActivity {
 
         title = findViewById(R.id.tvTitle);
         title.setText("...");
+        
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         new GetShop().execute();
 
         ViewPager viewPager = findViewById(R.id.fragment_holder_vp);
-        ShopModulesAdapter adapter = new ShopModulesAdapter(this, getSupportFragmentManager());
+        ShopModulesAdapter adapter = new ShopModulesAdapter(this, getSupportFragmentManager(), shopId);
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = findViewById(R.id.tab_layout_elements);
         tabLayout.setupWithViewPager(viewPager);

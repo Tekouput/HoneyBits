@@ -135,4 +135,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Name</string>
     <string name="price">Price</string>
+    <string name="categories_separate_by_commas">Categories | Separate by commas</string>
 </resources>
