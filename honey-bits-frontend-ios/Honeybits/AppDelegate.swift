@@ -17,7 +17,7 @@ import GoogleMaps
 import IQKeyboardManagerSwift
 
 enum Config {
-    static let HBUrl = "http://teko1.servehttp.com:10092/"
+    static let HBUrl = "http://104.248.61.12/"
     static let GoogleMapKey = "AIzaSyAnn9gPJq41D36O0RIsrvkBs2351htbpKg"
 }
 

@@ -18,7 +18,7 @@ class ShopController: UIViewController {
         var shop_logo: Image
         var map_location: MapLocation
         var policy: String?
-        var raiting: String?
+        var raiting: Float? = 0
         var is_favorite: Bool
         var sales_count: Int? = 0
     }
