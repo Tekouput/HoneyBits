@@ -1,16 +1,21 @@
 package com.teko.honeybits.honeybits;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.teko.honeybits.honeybits.API.Authentication.LoginHandler;
 import com.teko.honeybits.honeybits.API.Getters.GetImage;
-import com.teko.honeybits.honeybits.R;
 import com.teko.honeybits.honeybits.listeners.ImageReadyListener;
 import com.teko.honeybits.honeybits.models.Location;
 import com.teko.honeybits.honeybits.models.Picture;
@@ -27,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -42,11 +48,16 @@ public class ProductActivity extends AppCompatActivity {
     TextView productAvailability;
     TextView productDescription;
     String productId;
+    private Context context;
+    private ProgressDialog dialog;
+    private View parentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+
+        context = this;
 
         setTitle("Product profile");
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -67,7 +78,65 @@ public class ProductActivity extends AppCompatActivity {
         productAvailability = findViewById(R.id.product_availability);
         productDescription = findViewById(R.id.product_description);
 
+        final Context context = this;
+        parentLayout = ((ViewGroup) this
+                .findViewById(android.R.id.content)).getChildAt(0);
+
+        findViewById(R.id.add_to_cart_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = ProgressDialog.show(context, "",
+                        "Adding to cart...", true);
+                dialog.show();
+
+                new AddProductToCart().execute(Integer.valueOf(productId));
+            }
+        });
+
         new GetProductInformation().execute();
+    }
+
+    private class AddProductToCart extends AsyncTask<Integer, Void, Object> {
+
+        @Override
+        protected Object doInBackground(Integer... integers) {
+
+            MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+            RequestBody body = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("id", String.valueOf(integers[0]))
+                    .build();
+
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url("http://104.248.61.12/carts/product")
+                    .post(body)
+                    .addHeader("Authorization", new LoginHandler(context).getToken())
+                    .build();
+
+            try {
+                Response response = client.newCall(request).execute();
+                return response.code();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            dialog.dismiss();
+
+            Snackbar.make(parentLayout, "Added to cart", Snackbar.LENGTH_LONG)
+                    .setAction("CLOSE", null)
+                    .setActionTextColor(parentLayout.getResources().getColor(android.R.color.holo_red_light ))
+                    .show();
+
+            System.out.println(o);
+        }
+
     }
 
     private class GetProductInformation extends AsyncTask<Integer, Void, Object> {
