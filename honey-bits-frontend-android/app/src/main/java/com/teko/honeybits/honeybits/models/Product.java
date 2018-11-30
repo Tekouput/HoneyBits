@@ -1,5 +1,7 @@
 package com.teko.honeybits.honeybits.models;
 
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class Product {
@@ -12,6 +14,8 @@ public class Product {
     private Price price;
     private ArrayList<Category> categories = new ArrayList<>();
     private ArrayList<Picture> picture = new ArrayList<>();
+
+    public int amount = 1;
 
     public Product(String id, String name, String description, Shop shop, boolean isFavorite, Price price) {
         this.id = id;
@@ -93,5 +97,13 @@ public class Product {
 
     public void setPicture(ArrayList<Picture> picture) {
         this.picture = picture;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

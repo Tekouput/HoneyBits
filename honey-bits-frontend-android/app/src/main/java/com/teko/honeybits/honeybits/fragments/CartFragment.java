@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.teko.honeybits.honeybits.API.Authentication.LoginHandler;
 import com.teko.honeybits.honeybits.R;
@@ -22,20 +25,16 @@ import com.teko.honeybits.honeybits.models.Price;
 import com.teko.honeybits.honeybits.models.Product;
 import com.teko.honeybits.honeybits.models.Shop;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class CartFragment extends Fragment {
@@ -53,10 +52,20 @@ public class CartFragment extends Fragment {
         RecyclerView.LayoutManager linearLayoutProducts = new LinearLayoutManager(context,
                 LinearLayoutManager.VERTICAL, false);
 
-        adapter = new ProductAdapter(context);
+        adapter = new ProductAdapter(context, (TextView) view.findViewById(R.id.total_amount));
         RecyclerView cart_holder = view.findViewById(R.id.cart_holder);
         cart_holder.setLayoutManager(linearLayoutProducts);
         cart_holder.setAdapter(adapter);
+
+
+        view.findViewById(R.id.checkout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(getActivity().findViewById(android.R.id.content), "Not implemented", Snackbar.LENGTH_LONG)
+                        .setAction("CLOSE", null)
+                        .show();
+            }
+        });
 
         new GetCartElements().execute();
         return view;
@@ -86,85 +95,97 @@ public class CartFragment extends Fragment {
                     jArray = cart.optJSONArray("products");
                     for (int i = 0; i < jArray.length(); i++){
                         JSONObject jObject = jArray.getJSONObject(i);
-                        Log.i("Product", jObject.toString());
+                        String id = jObject.getString("id");
 
-                        JSONObject jShop = jObject.getJSONObject("shop");
-                        JSONObject jShopPicture = jShop.getJSONObject("shop_picture");
-                        JSONObject jShopLogo = jShop.getJSONObject("shop_logo");
-                        JSONObject jLocation = jShop.getJSONObject("map_location");
-                        Shop shop = new Shop(
-                                jShop.getString("id"),
-                                jShop.getString("name"),
-                                jShop.getString("description"),
-                                new Picture(
-                                        null,
-                                        null,
-                                        new Picture.SizeSources(
-                                                jShopPicture.getString("big"),
-                                                jShopPicture.getString("medium"),
-                                                jShopPicture.getString("thumb")
-                                        )
-                                ),
-                                new Picture(
-                                        null,
-                                        null,
-                                        new Picture.SizeSources(
-                                                jShopLogo.getString("big"),
-                                                jShopLogo.getString("medium"),
-                                                jShopLogo.getString("thumb")
-                                        )
+                        Product tempProduct = objectInArray(products, id);
+                        if (tempProduct != null) {
+                            tempProduct.amount = tempProduct.amount + 1;
 
-                                ),
-                                new Location(
-                                        jLocation.getString("place_id"),
-                                        jLocation.getDouble("latitude"),
-                                        jLocation.getDouble("longitude")
-                                ),
-                                jShop.getString("policy"),
-                                jShop.getString("raiting"),
-                                jShop.getBoolean("is_favorite")
-                        );
+                        } else {
+                            JSONObject jShop = jObject.getJSONObject("shop");
+                            JSONObject jShopPicture = jShop.getJSONObject("shop_picture");
+                            JSONObject jShopLogo = jShop.getJSONObject("shop_logo");
+                            JSONObject jLocation = jShop.getJSONObject("map_location");
+                            Shop shop = new Shop(
+                                    jShop.getString("id"),
+                                    jShop.getString("name"),
+                                    jShop.getString("description"),
+                                    new Picture(
+                                            null,
+                                            null,
+                                            new Picture.SizeSources(
+                                                    jShopPicture.getString("big"),
+                                                    jShopPicture.getString("medium"),
+                                                    jShopPicture.getString("thumb")
+                                            )
+                                    ),
+                                    new Picture(
+                                            null,
+                                            null,
+                                            new Picture.SizeSources(
+                                                    jShopLogo.getString("big"),
+                                                    jShopLogo.getString("medium"),
+                                                    jShopLogo.getString("thumb")
+                                            )
 
-                        JSONObject jPrice = jObject.getJSONObject("price");
-                        Product product = new Product(
-                                jObject.getString("id"),
-                                jObject.getString("name"),
-                                jObject.getString("description"),
-                                shop,
-                                jObject.getBoolean("is_favorite"),
-                                new Price(
-                                        jPrice.getString("raw"),
-                                        jPrice.getString("formatted")
-                                )
-                        );
-
-                        JSONArray jPictures = jObject.getJSONArray("pictures");
-                        for (int j = 0; j < jPictures.length(); j++){
-                            JSONObject jPicture = jPictures.getJSONObject(j);
-                            JSONObject jUrls = jPicture.getJSONObject("urls");
-                            Log.i("Test", jUrls.toString());
-                            Picture picture = new Picture(
-                                    jPicture.getString("id"),
-                                    jPicture.getString("product"),
-                                    new Picture.SizeSources(
-                                            jUrls.getString("big"),
-                                            jUrls.getString("medium"),
-                                            jUrls.getString("thumb")
-                                    )
-
+                                    ),
+                                    new Location(
+                                            jLocation.getString("place_id"),
+                                            jLocation.getDouble("latitude"),
+                                            jLocation.getDouble("longitude")
+                                    ),
+                                    jShop.getString("policy"),
+                                    jShop.getString("raiting"),
+                                    jShop.getBoolean("is_favorite")
                             );
-                            product.getPicture().add(picture);
+
+                            JSONObject jPrice = jObject.getJSONObject("price");
+                            Product product = new Product(
+                                    jObject.getString("id"),
+                                    jObject.getString("name"),
+                                    jObject.getString("description"),
+                                    shop,
+                                    jObject.getBoolean("is_favorite"),
+                                    new Price(
+                                            jPrice.getString("raw"),
+                                            jPrice.getString("formatted")
+                                    )
+                            );
+
+                            JSONArray jPictures = jObject.getJSONArray("pictures");
+                            for (int j = 0; j < jPictures.length(); j++) {
+                                JSONObject jPicture = jPictures.getJSONObject(j);
+                                JSONObject jUrls = jPicture.getJSONObject("urls");
+                                Log.i("Test", jUrls.toString());
+                                Picture picture = new Picture(
+                                        jPicture.getString("id"),
+                                        jPicture.getString("product"),
+                                        new Picture.SizeSources(
+                                                jUrls.getString("big"),
+                                                jUrls.getString("medium"),
+                                                jUrls.getString("thumb")
+                                        )
+
+                                );
+                                product.getPicture().add(picture);
+                            }
+
+                            products.add(product);
                         }
-
-                        products.add(product);
                     }
-
                     return products;
                 }
             } catch (JSONException | IOException e) {
                 e.printStackTrace();
             }
 
+            return null;
+        }
+
+        private Product objectInArray(ArrayList<Product> arrayList, String id) {
+            for (Product product : arrayList){
+                if (product.getId().equals(id)) return product;
+            }
             return null;
         }
 
