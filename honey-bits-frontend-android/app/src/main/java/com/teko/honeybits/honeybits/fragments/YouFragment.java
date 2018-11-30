@@ -114,7 +114,7 @@ public class YouFragment extends Fragment {
         headers.put("Authorization", token);
 
         Request requestPopular = new Request("favorites", params, headers);
-        ShopAdapter favoriteShops = new ShopAdapter(ShopAdapter.LayoutDirection.HORIZONTAL, context, null);
+        ShopAdapter favoriteShops = new ShopAdapter(ShopAdapter.LayoutDirection.HORIZONTAL, context, null, context);
         ShopsReadyListener popularListener = new ShopsReadyListener(favoriteShops);
         GetShops getFavoritesShop = new GetShops();
         getFavoritesShop.registerOnResultReadyListener(popularListener);

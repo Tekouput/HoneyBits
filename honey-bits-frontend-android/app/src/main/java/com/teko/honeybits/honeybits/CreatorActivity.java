@@ -67,7 +67,7 @@ public class CreatorActivity extends AppCompatActivity {
         editorsStores.setHasFixedSize(true);
         editorsStores.setLayoutManager(linearLayoutShops);
 
-        shopAdapter = new ShopAdapter(ShopAdapter.LayoutDirection.HORIZONTAL, context, R.layout.view_shop_large, new ShopAdminActivity());
+        shopAdapter = new ShopAdapter(ShopAdapter.LayoutDirection.HORIZONTAL, context, R.layout.view_shop_large, new ShopAdminActivity(), context);
         editorsStores.setAdapter(shopAdapter);
 
         new GetOwnersStores().execute();

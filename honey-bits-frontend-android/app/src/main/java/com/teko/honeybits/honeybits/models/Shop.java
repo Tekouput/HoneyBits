@@ -10,7 +10,7 @@ public class Shop {
     private Location location;
     private String policy;
     private String rating;
-    private boolean isFavorite;
+    public boolean isFavorite;
     private int sales_count;
 
     public int distance = 0;

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.teko.honeybits.honeybits.API.Authentication.LoginHandler;
 import com.teko.honeybits.honeybits.API.Getters.GetProducts;
 import com.teko.honeybits.honeybits.API.Getters.GetShops;
 import com.teko.honeybits.honeybits.API.Request;
@@ -48,6 +49,11 @@ public class FavoritesFragment extends Fragment {
 
         Map<String, Object> params = new HashMap<>();
         Map<String, String> headers = new HashMap<>();
+        LoginHandler loginHandler = new LoginHandler(context);
+
+        if (loginHandler.tokenAvailable()) {
+            headers.put("Authorization", loginHandler.getToken());
+        }
 
         Request requestEditorsProducts = new Request("products/latest", params, headers);
         ProductAdapter editorsProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.HORIZONTAL, context);
@@ -58,7 +64,7 @@ public class FavoritesFragment extends Fragment {
         editorsProducts.setAdapter(editorsProductAdapter);
 
         Request requestEditorsShops = new Request("shops/favorites", params, headers);
-        ShopAdapter editorsShopAdapter = new ShopAdapter(ShopAdapter.LayoutDirection.HORIZONTAL, context, null);
+        ShopAdapter editorsShopAdapter = new ShopAdapter(ShopAdapter.LayoutDirection.HORIZONTAL, context, null, context);
         ShopsReadyListener editorsShopListener = new ShopsReadyListener(editorsShopAdapter);
         GetShops getShopEditors = new GetShops();
         getShopEditors.registerOnResultReadyListener(editorsShopListener);

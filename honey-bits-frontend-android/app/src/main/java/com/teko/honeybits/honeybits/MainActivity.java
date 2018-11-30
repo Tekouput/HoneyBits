@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements FeedFragment.OnFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Configuration.fragmentManager = getSupportFragmentManager();
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new HomeFragment()).commit();

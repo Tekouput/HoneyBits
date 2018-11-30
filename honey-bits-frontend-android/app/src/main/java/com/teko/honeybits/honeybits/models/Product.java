@@ -10,7 +10,7 @@ public class Product {
     private String name;
     private String description;
     private Shop shop;
-    private boolean isFavorite;
+    public boolean isFavorite;
     private Price price;
     private ArrayList<Category> categories = new ArrayList<>();
     private ArrayList<Picture> picture = new ArrayList<>();

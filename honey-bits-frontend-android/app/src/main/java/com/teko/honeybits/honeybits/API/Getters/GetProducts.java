@@ -42,6 +42,12 @@ public class GetProducts extends AsyncTask<Request, Void, Product[]> {
         try {
 
             HttpGet httpRequest = new HttpGet(requests[0].url);
+
+            for (int i = 0; i < requests[0].headers.size(); i++) {
+                System.out.println(requests[0].headers.get("Authorization"));
+                httpRequest.setHeader("Authorization", requests[0].headers.get("Authorization"));
+            }
+
             HttpClient httpclient = new DefaultHttpClient();
             HttpResponse response = httpclient.execute(httpRequest);
 

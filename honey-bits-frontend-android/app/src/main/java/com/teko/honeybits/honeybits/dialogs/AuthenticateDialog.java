@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.teko.honeybits.honeybits.LoginActivity;
 import com.teko.honeybits.honeybits.R;
+import com.teko.honeybits.honeybits.RegisterActivity;
 
 public class AuthenticateDialog extends DialogFragment {
 
@@ -29,6 +30,14 @@ public class AuthenticateDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(builder.getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        view.findViewById(R.id.register_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(builder.getContext(), RegisterActivity.class);
                 startActivity(intent);
             }
         });

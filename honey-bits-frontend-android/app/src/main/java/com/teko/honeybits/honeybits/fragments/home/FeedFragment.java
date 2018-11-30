@@ -74,6 +74,11 @@ public class FeedFragment extends Fragment {
 
         Map<String, Object> params = new HashMap<>();
         Map<String, String> headers = new HashMap<>();
+        LoginHandler loginHandler = new LoginHandler(context);
+
+        if (loginHandler.tokenAvailable()) {
+            headers.put("Authorization", loginHandler.getToken());
+        }
 
         Request requestPopular = new Request("products/popular", params, headers);
         ProductAdapter popularProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.VERTICAL, context);
