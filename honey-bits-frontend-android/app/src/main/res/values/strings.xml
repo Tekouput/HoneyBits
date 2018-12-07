@@ -136,4 +136,6 @@
     <string name="name">Name</string>
     <string name="price">Price</string>
     <string name="categories_separate_by_commas">Categories | Separate by commas</string>
+    <string name="store_imaage">Store imaage</string>
+    <string name="store_logo">Store logo</string>
 </resources>

@@ -67,7 +67,9 @@ public class CartFragment extends Fragment {
             }
         });
 
-        new GetCartElements().execute();
+        if ((new LoginHandler(context).getToken()) != null) {
+            new GetCartElements().execute();
+        }
         return view;
     }
 

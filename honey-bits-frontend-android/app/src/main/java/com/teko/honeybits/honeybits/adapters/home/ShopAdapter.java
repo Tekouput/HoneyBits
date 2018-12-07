@@ -18,7 +18,9 @@ import android.widget.TextView;
 import com.teko.honeybits.honeybits.API.Authentication.LoginHandler;
 import com.teko.honeybits.honeybits.API.Getters.GetImage;
 import com.teko.honeybits.honeybits.API.Request;
+import com.teko.honeybits.honeybits.ProductActivity;
 import com.teko.honeybits.honeybits.R;
+import com.teko.honeybits.honeybits.ShopActivity;
 import com.teko.honeybits.honeybits.listeners.ImageReadyListener;
 import com.teko.honeybits.honeybits.models.Product;
 import com.teko.honeybits.honeybits.models.Shop;
@@ -187,6 +189,15 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
 
                         new FavoriteHandler().execute(supportFavoriteArguments);
                     }
+                }
+            });
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ShopActivity.class);
+                    intent.putExtra("STORE_ID", id);
+                    context.startActivity(intent);
                 }
             });
         }

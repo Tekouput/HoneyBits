@@ -46,7 +46,8 @@
         <activity android:name=".ShopCreatorActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ShopAdminActivity" />
-        <activity android:name=".ProductCreatorActivity"></activity>
+        <activity android:name=".ProductCreatorActivity" />
+        <activity android:name=".ShopActivity"></activity>
     </application>
 
 </manifest>
