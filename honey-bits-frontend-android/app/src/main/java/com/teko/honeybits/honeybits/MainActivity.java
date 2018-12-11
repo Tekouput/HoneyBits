@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements FeedFragment.OnFr
     public static double latitude;
     public static double longitude;
 
-    // Test
+    // Test algo
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
