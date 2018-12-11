@@ -1,7 +1,12 @@
 package com.teko.honeybits.honeybits;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.teko.honeybits.honeybits.API.Getters.GetImage;
+import com.teko.honeybits.honeybits.adapters.Search.SearchShopAdapter;
 import com.teko.honeybits.honeybits.listeners.ImageReadyListener;
 import com.teko.honeybits.honeybits.models.Location;
 import com.teko.honeybits.honeybits.models.Picture;
@@ -36,11 +42,15 @@ public class ShopActivity extends AppCompatActivity {
     private ImageView logo;
     private ImageView image;
     private TextView name;
+    private TextView distance;
+
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
+        context = this;
 
         setTitle("Store profile");
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -54,11 +64,40 @@ public class ShopActivity extends AppCompatActivity {
         logo = findViewById(R.id.logo);
         image = findViewById(R.id.image);
         name = findViewById(R.id.name);
+        distance = findViewById(R.id.distance);
 
         storeId = getIntent().getStringExtra("STORE_ID");
 
         new GetProductInformation().execute();
 
+    }
+
+    class LatLng {
+
+        public double latitude;
+        public double longitude;
+
+        public LatLng(double latitude, double longitude) {
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
+    }
+
+    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+
+        return Radius * c;
     }
 
     private class GetProductInformation extends AsyncTask<Integer, Void, Object> {
@@ -134,6 +173,20 @@ public class ShopActivity extends AppCompatActivity {
 
             setImage(shop.getPicture().getUrls().getBig(), image);
             setImage(shop.getLogo().getUrls().getMedium(), logo);
+
+            LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            android.location.Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            LatLng myLoc = new LatLng(latitude, longitude);
+
+            distance.setText(String.format("%.2f KM", CalculationByDistance(
+                    new LatLng(shop.getLocation().getLatitude(), shop.getLocation().getLongitude()),
+                    myLoc)));
         }
 
         public void setImage(String url, ImageView imageView){
