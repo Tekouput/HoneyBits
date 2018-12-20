@@ -37,7 +37,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 stripe.createToken(card,
                         new TokenCallback() {
                             public void onSuccess(Token token) {
-                                // Send token to your server
+                                // Send token to your serverr
                                 System.out.print(token);
 
                             }
