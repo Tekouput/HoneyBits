@@ -1,6 +1,7 @@
 package com.teko.honeybits.honeybits.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,10 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.teko.honeybits.honeybits.API.Authentication.LoginHandler;
+import com.teko.honeybits.honeybits.CheckoutActivity;
 import com.teko.honeybits.honeybits.R;
 import com.teko.honeybits.honeybits.adapters.Cart.ProductAdapter;
 import com.teko.honeybits.honeybits.models.Location;
@@ -38,7 +41,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class CartFragment extends Fragment {
-
+    private Button button;
     ProductAdapter adapter;
     Context context;
 
@@ -49,6 +52,8 @@ public class CartFragment extends Fragment {
 
         context = getContext();
 
+
+
         RecyclerView.LayoutManager linearLayoutProducts = new LinearLayoutManager(context,
                 LinearLayoutManager.VERTICAL, false);
 
@@ -58,20 +63,33 @@ public class CartFragment extends Fragment {
         cart_holder.setAdapter(adapter);
 
 
+
         view.findViewById(R.id.checkout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(getActivity().findViewById(android.R.id.content), "Not implemented", Snackbar.LENGTH_LONG)
-                        .setAction("CLOSE", null)
-                        .show();
-            }
+                    openCheckout();
+                }
+
+
         });
+
+
 
         if ((new LoginHandler(context).getToken()) != null) {
             new GetCartElements().execute();
         }
         return view;
+
+
     }
+
+    public void openCheckout(){
+        Intent intent = new Intent(getActivity().getApplication() , CheckoutActivity.class);
+        startActivity(intent);
+
+    }
+
+
 
     private class GetCartElements extends AsyncTask<Object, Void, ArrayList<Product>> {
 
