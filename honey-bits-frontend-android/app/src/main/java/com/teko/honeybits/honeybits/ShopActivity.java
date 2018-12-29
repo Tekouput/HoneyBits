@@ -10,13 +10,21 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.teko.honeybits.honeybits.API.Authentication.LoginHandler;
 import com.teko.honeybits.honeybits.API.Getters.GetImage;
+import com.teko.honeybits.honeybits.API.Getters.GetProducts;
 import com.teko.honeybits.honeybits.adapters.Search.SearchShopAdapter;
+import com.teko.honeybits.honeybits.adapters.home.ProductAdapter;
 import com.teko.honeybits.honeybits.listeners.ImageReadyListener;
+import com.teko.honeybits.honeybits.listeners.ProductsReadyListener;
 import com.teko.honeybits.honeybits.models.Location;
 import com.teko.honeybits.honeybits.models.Picture;
 import com.teko.honeybits.honeybits.models.Price;
@@ -43,6 +51,7 @@ public class ShopActivity extends AppCompatActivity {
     private ImageView image;
     private TextView name;
     private TextView distance;
+    private TextView creator;
 
     private Context context;
 
@@ -65,10 +74,38 @@ public class ShopActivity extends AppCompatActivity {
         image = findViewById(R.id.image);
         name = findViewById(R.id.name);
         distance = findViewById(R.id.distance);
+        creator = findViewById(R.id.creator);
 
         storeId = getIntent().getStringExtra("STORE_ID");
 
         new GetProductInformation().execute();
+        setUpRecyclers(context);
+
+    }
+
+    private void setUpRecyclers(Context context) {
+        RecyclerView shopProductsList = findViewById(R.id.products_list);
+        shopProductsList.setHasFixedSize(true);
+        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+        context = this;
+
+        shopProductsList.setLayoutManager(gridLayoutManager);
+
+        Map<String, Object> params = new HashMap<>();
+        Map<String, String> headers = new HashMap<>();
+        LoginHandler loginHandler = new LoginHandler(context);
+
+        if (loginHandler.tokenAvailable()) {
+            headers.put("Authorization", loginHandler.getToken());
+        }
+
+        com.teko.honeybits.honeybits.API.Request requestShop = new com.teko.honeybits.honeybits.API.Request("/shops/products?id=5", params, headers);
+        ProductAdapter shopProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.VERTICAL, context);
+        ProductsReadyListener shopListener = new ProductsReadyListener(shopProductAdapter);
+        GetProducts getProductsShop = new GetProducts();
+        getProductsShop.registerOnResultReadyListener(shopListener);
+        getProductsShop.execute(requestShop);
+        shopProductsList.setAdapter(shopProductAdapter);
 
     }
 
