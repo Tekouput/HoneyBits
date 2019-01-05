@@ -99,7 +99,7 @@ public class ShopActivity extends AppCompatActivity {
             headers.put("Authorization", loginHandler.getToken());
         }
 
-        com.teko.honeybits.honeybits.API.Request requestShop = new com.teko.honeybits.honeybits.API.Request("/shops/products?id=5", params, headers);
+        com.teko.honeybits.honeybits.API.Request requestShop = new com.teko.honeybits.honeybits.API.Request("/shops/products?id=" + storeId, params, headers);
         ProductAdapter shopProductAdapter = new ProductAdapter(ProductAdapter.LayoutDirection.VERTICAL, context);
         ProductsReadyListener shopListener = new ProductsReadyListener(shopProductAdapter);
         GetProducts getProductsShop = new GetProducts();
