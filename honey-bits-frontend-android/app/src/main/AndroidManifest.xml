@@ -43,6 +43,7 @@
             android:name=".ProductActivity"
             android:label="@string/title_activity_product" />
         <activity android:name=".CreatorActivity" />
+        <activity android:name=".CheckoutActivity" />
         <activity android:name=".ShopCreatorActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ShopAdminActivity" />

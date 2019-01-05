@@ -246,7 +246,7 @@ public class ProductActivity extends AppCompatActivity {
             productDescription.setText(product.getDescription());
             productPrice.setText(product.getPrice().getFormatted());
 
-            setImage(product.getPicture().get(0).getUrls().getBig(), productImage);
+            setImage(product.getPicture().get(0).getUrls().getBig(), productImage); // TODO: FIX INDEX OUT OF RANGE EXCEPTION
             setImage(product.getShop().getLogo().getUrls().getMedium(), storeLogo);
         }
 

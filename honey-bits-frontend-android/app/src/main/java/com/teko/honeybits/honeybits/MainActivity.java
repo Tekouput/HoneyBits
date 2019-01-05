@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements FeedFragment.OnFr
     public static double latitude;
     public static double longitude;
 
+    // Test algo holaaa
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
